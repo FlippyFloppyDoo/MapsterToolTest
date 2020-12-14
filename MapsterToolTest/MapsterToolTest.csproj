@@ -1,17 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Mapster" Version="7.0.1" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Mappers" />
+    </ItemGroup>
     
     <Target Name="Mapster" AfterTargets="AfterBuild">
         <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore" />
-           <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster mapper -a $(TargetDir)$(ProjectName).dll" />
+           <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster mapper -a $(TargetDir)$(ProjectName).dll -p" />
     </Target>
     <Target Name="CleanGenerated">
         <Delete Files="@(Generated)" />
